@@ -4,30 +4,19 @@
   
   
   <entry>
-    <title>How To Build Blog</title>
-    <link href="/2021/05/17/Blog-Start/"/>
-    <url>/2021/05/17/Blog-Start/</url>
-    
-    <content type="html"><![CDATA[]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>Hexo + GitHub 搭建个人博客</title>
     <link href="/2021/05/17/blog-start/"/>
     <url>/2021/05/17/blog-start/</url>
     
-    <content type="html"><![CDATA[<p>通过Hexo 快速搭建个人博客</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Hexo-GitHub-搭建个人博客"><a href="#Hexo-GitHub-搭建个人博客" class="headerlink" title="Hexo + GitHub 搭建个人博客"></a>Hexo + GitHub 搭建个人博客</h1><p>  虽然每次需通过MakDown文件生成HTML文件，但这种方式更加自由干净且没有广告。  </p><span id="more"></span><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>更多详细使用介绍，最好参考<a href="https://hexo.io/zh-cn/docs/">Hexo文档</a> 了解具体的<em><strong>配置、命令、写作</strong></em> 等。<br>Hexo 是一个基于nodejs 的静态博客网站生成器,使用之前的环境准备需要安装以下程序。  </p><p>• <a href="https://nodejs.org/zh-cn/">Node.js</a> (Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本)<br>• <a href="https://git-scm.com/">Git</a></p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>Node 和 Git 安装完毕后，就可以通过npm命令下载安装Hexo。<br>首先我们建立一个<strong>目录文件夹 MyBlog</strong> 右键启动Git Bash Here，然后输入命令(需要权限的话 sudo 执行)：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">$ npm install -g hexo-cli <br></code></pre></td></tr></table></figure><p>完成后初始化在本地生成Hexo相关目录：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">$ hexo init<br></code></pre></td></tr></table></figure><p>启动Hexo服务 或者 hexo s (-p 端口：默认4000)：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">$ hexo server<br></code></pre></td></tr></table></figure><p>本地访问：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">localhost:4000<br></code></pre></td></tr></table></figure><p>至此，Hexo已经安装完成并可以使用了，只是样式上并不怎么美观，我们可以去官网下载相应的主题。</p><h2 id="主题下载和安装"><a href="#主题下载和安装" class="headerlink" title="主题下载和安装"></a>主题下载和安装</h2><p>Hexo官网上提供了丰富的主题可选，你只需要打开对应的界面（<a href="https://hexo.io/themes/">https://hexo.io/themes/</a> ）选择喜欢的，然后点击名称跳转到GitHub仓库选择下载或者克隆对应的zip文件到本地，并且解压到网站目录下的themes目录即可。<br><img src="/img/blog-start/Hexo%E4%B8%BB%E9%A2%98.png" alt="alt 属性文本" title="Hexo主题">  </p><p>1、这里介绍下本博客使用的主题 <a href="https://github.com/fluid-dev/hexo-theme-fluid"><strong>Fluid</strong></a> 的安装过程，直接使用命令npm下载：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">$ npm install --save hexo-theme-fluid<br></code></pre></td></tr></table></figure><p>2、然后在博客目录下创建 _config.fluid.yml，将主题的 _config.yml （从GitHub复制即可）内容复制进去</p><p>3、指定主题 如下修改 Hexo 博客目录中的 _config.yml：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs $xslt">theme: fluid  # 指定主题<br>language: zh-CN  # 指定语言，会影响主题显示的语言，按需修改<br></code></pre></td></tr></table></figure><h2 id="GitHub-Pages-静态部署"><a href="#GitHub-Pages-静态部署" class="headerlink" title="GitHub Pages 静态部署"></a>GitHub Pages 静态部署</h2><p>参考GitHub Pages功能<br>1、首先创建用户名同名的Repository，便于直接使用 username.github.io (例如：<a href="Uncle-PB.github.io">Uncle-PB.github.io</a> )进行访问</p>]]></content>
     
     
     
     <tags>
       
-      <tag>blog</tag>
+      <tag>Hexo</tag>
+      
+      <tag>Blog</tag>
       
     </tags>
     
@@ -40,7 +29,7 @@
     <link href="/2021/05/14/hello-world/"/>
     <url>/2021/05/14/hello-world/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
     
     
