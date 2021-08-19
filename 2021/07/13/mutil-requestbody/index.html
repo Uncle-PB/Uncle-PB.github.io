@@ -188,7 +188,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      751 字
+      769 字
     </span>
   
 
@@ -261,7 +261,7 @@
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> cn.dragon.framework.request.RequestWrapper;<br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.slf4j.Logger;<br><span class="hljs-keyword">import</span> org.slf4j.LoggerFactory;<br><br><span class="hljs-keyword">import</span> javax.servlet.*;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * @author lhl</span><br><span class="hljs-comment"> * @date 2021/4/29</span><br><span class="hljs-comment"> * @desc 统计过滤器</span><br><span class="hljs-comment"> */</span><br>@Slf4j<br><span class="hljs-built_in">public</span> <span class="hljs-keyword">class</span> RequestLogFilter implements <span class="hljs-keyword">Filter</span> &#123;<br>    private static final Logger logger = LoggerFactory.getLogger(RequestLogFilter.<span class="hljs-keyword">class</span>);<br><br>    @Override<br>    <span class="hljs-built_in">public</span> <span class="hljs-type">void</span> init(FilterConfig filterConfig) throws ServletException &#123;<br><br>    &#125;<br><br>    @Override<br>    <span class="hljs-built_in">public</span> <span class="hljs-type">void</span> doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;<br>        Long start = <span class="hljs-keyword">System</span>.currentTimeMillis();<br>        HttpServletRequest request = (HttpServletRequest) servletRequest;<br>        RequestWrapper <span class="hljs-keyword">wrapper</span> = <span class="hljs-built_in">new</span> RequestWrapper(request);<br>        String uri = request.getRequestURI();<br>        logger.<span class="hljs-keyword">info</span>(&quot;接口：&#123;&#125;,入参：&#123;&#125;&quot;, uri, <span class="hljs-keyword">wrapper</span>.getBody());<br>        filterChain.doFilter(<span class="hljs-keyword">wrapper</span>, servletResponse);<br>        logger.<span class="hljs-keyword">info</span>(&quot;接口：&#123;&#125;,耗时：&#123;&#125;&quot;, uri, <span class="hljs-keyword">System</span>.currentTimeMillis() - <span class="hljs-keyword">start</span>);<br>    &#125;<br><br>    @Override<br>    <span class="hljs-built_in">public</span> <span class="hljs-type">void</span> destroy() &#123;<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </details>
 
-
+<p>然后这样就可以愉快的使用多个 @RequestBody 注解了<br><img src="/img/mutil-requestbody/%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E6%B3%A8%E8%A7%A3.png" srcset="/img/loading.gif" lazyload alt="alt 属性文本" title="使用多个 @RequestBody">  </p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1328976435871777">使用filter修改请求</a></p>
 
             </div>
@@ -282,6 +282,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/08/19/ES-head-%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES-head 插件使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
