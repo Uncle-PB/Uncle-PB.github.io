@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>classpath &amp; jar | Hexo</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="classpath &amp; jar | Hexo">
+  <title>Excel 使用CsvTool导出 | Hexo</title>
+  <meta name="keywords" content=" Excel ">
+  <meta name="description" content="Excel 使用CsvTool导出 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -486,19 +486,34 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-jar-classpath" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-excel/CsvTool" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">classpath &amp; jar</h1>
+        <h1 class="article-title">Excel 使用CsvTool导出</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="ATM">ATM</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">Excel</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-02-20 09:28:59'>2021-05-18 14:20</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-18 14:46:00'>2023-03-18 14:22</time>
         
     </div>
     <div class="article-meta">
@@ -520,7 +535,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#classpath"><span class="toc-text">classpath</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jar"><span class="toc-text">jar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84classpath"><span class="toc-text">Java项目中的classpath</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9ADemo"><span class="toc-text">类：Demo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9A%E5%AF%BC%E5%87%BA%E5%AE%9E%E4%BD%93-ExportVO"><span class="toc-text">类：导出实体 ExportVO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%EF%BC%9A-CsvField"><span class="toc-text">注解：@CsvField</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9ACsvData"><span class="toc-text">类：CsvData</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9ACsvTool"><span class="toc-text">类：CsvTool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -537,43 +552,210 @@
     <div class="article-entry" itemprop="articleBody">
       
         <!--------------------------------- Title Start --------------------------------->
-<p><strong><font size=7 face="黑体"> classpath &amp; jar </font></strong></p>
-<!--------------------------------- Summary Start ------------------------------->
-<p>&emsp;&emsp;<font size=5 >到底什么是classpath？ </font></p>
-<span id="more"></span>
+<p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
+<p>包目录结构：<br>csvUtil<br>    - CsvData<br>    - CsvField<br>    - CsvTool<br>vo<br>    - ExportVO<br>demo<br>    - CsvToolDemo</p>
+<h3 id="类：Demo"><a href="#类：Demo" class="headerlink" title="类：Demo"></a>类：Demo</h3><pre><code class="java">@Test
+public void test1() throws Exception &#123;
+    List list = new ArrayList&lt;&gt;();
+    File file = new File(&quot;/Users/admin/Documents/excel/1.csv&quot;);
+    OutputStream outputStream = new FileOutputStream(file);
 
-<h2 id="classpath"><a href="#classpath" class="headerlink" title="classpath"></a>classpath</h2><p><b>顾名思义，<front style="color: #FF1493;" >classpath</front>是 class的 path，即类文件（*.class）路径。是JVM用到的一个环境变量，用来指示JVM如何搜索class。</b></p>
-<blockquote><p>因为Java是编译型语言，源码文件是 <front style="color: #FF1493;">.java</front>，而编译后的<front style="color: #FF1493;">.class</front> 文件才是真正可以被JVM执行的字节码。<br>因此，JVM需要知道，如果要加载一个abc.xyz.Hello的类，应该去哪 搜索 对应的Hello.class文件。<br>所以，classpath就是一组目录的集合，它设置的搜索路径<front style="color: #FF1493;">与操作系统相关</front>。</p>
-</blockquote>
+    CsvTool csvTool = new CsvTool(outputStream);
+    csvTool.writeHeader(ExportVO.class);
+    csvTool.writeData(list);
+    csvTool.close();
+&#125;
+</code></pre>
+<h3 id="类：导出实体-ExportVO"><a href="#类：导出实体-ExportVO" class="headerlink" title="类：导出实体 ExportVO"></a>类：导出实体 ExportVO</h3><pre><code class="java">import csvutil.CsvField;
+import lombok.Data;
 
-<p>classpath的设定方法有两种：<br> • 在系统环境变量中设置classpath环境变量，不推荐；<br> • 在启动JVM时设置classpath变量，推荐。</p>
-<p>我们强烈 <front style="color: #FF1493;">不推荐</front> 在系统环境变量中设置classpath，那样会污染整个系统环境。在启动JVM时设置classpath才是推荐的做法。<br>实际上就是给java命令传入<front style="color: #FF1493;">-classpath</front> ：</p>
-<pre><code>java -classpath .;C:\work\project1\bin;C:\shared abc.xyz.Hello
+@Data
+public class ExportVO &#123;
+    @CsvField(name = &quot;value&quot;)
+    private String value;
+&#125;
 </code></pre>
-<p>或者使用 <front style="color: #FF1493;">-cp</front>  的简写：</p>
-<pre><code>java -cp .;C:\work\project1\bin;C:\shared abc.xyz.Hello
-</code></pre>
-<p>没有设置系统环境变量，也没有传入-cp参数，那么JVM默认的classpath为 <front style="color: #FF1493;">•</front> ，即当前目录：</p>
-<pre><code>java abc.xyz.Hello
-</code></pre>
-<p>上述命令告诉JVM只在当前目录搜索Hello.class。</p>
-<p>在IDE中运行Java程序，IDE自动传入的<front style="color: #FF1493;">-cp</front>参数是当前工程的<front style="color: #FF1493;">bin</front>目录和引入的jar包</p>
-<h2 id="jar"><a href="#jar" class="headerlink" title="jar"></a>jar</h2><p>如果有很多.class文件，散落在各层目录中，肯定不便于管理。如果能把目录打一个包，变成一个文件，就方便多了。</p>
-<p>jar包就是用来干这个事的，它可以把package组织的目录层级，以及各个目录下的所有文件（包括.class文件和其他文件）都打成一个jar文件，这样一来，无论是备份，还是发给客户，就简单多了。</p>
-<p><b><front style="color: #FF1493;">jar包</front> 实际上就是一个zip格式的压缩文件，而jar包相当于目录。</b> 如果我们要执行一个jar包的class，就可以把jar包放到classpath中：</p>
-<pre><code>java -cp ./hello.jar abc.xyz.Hello
-</code></pre>
-<p>这样JVM会自动在hello.jar文件里去搜索某个类。<br>jar包还可以包含一个特殊的<front style="color: #FF1493;">/META-INF/MANIFEST.MF</front> 文件，MANIFEST.MF是纯文本，可以指定<front style="color: #FF1493;">Main-Class</front> 和其它信息。JVM会自动读取这个MANIFEST.MF文件，如果存在Main-Class，我们就不必在命令行指定启动的类名，而是用更方便的命令：</p>
-<pre><code>java -jar hello.jar
-</code></pre>
-<p>jar包还可以包含其它jar包，这个时候，就需要在 MANIFEST.MF文件里配置classpath了。</p>
-<p>在大型项目中，不可能手动编写MANIFEST.MF文件，再手动创建zip包。Java社区提供了大量的开源构建工具，例如Maven，可以非常方便地创建jar包。</p>
-<h2 id="Java项目中的classpath"><a href="#Java项目中的classpath" class="headerlink" title="Java项目中的classpath"></a>Java项目中的classpath</h2><p>WEB项目的类路径可以理解为就是 <front style="color: #FF1493;">classes下面</front>。因为无论这些配置文件你放在哪，编译之后如果没有特殊情况的话都直接在classes下面。jar包的话虽然放在lib文件夹里，但实际上那些类你可以直接引用的。引用的过程中，比如com.test.ABC，就可以直接这么写，仿佛也在classes下面一样。</p>
-<div style="width:30%;margin:auto"><img src="/2021/05/18/jar-classpath/classpath.png" class="" title="classpath"></div>
+<h3 id="注解：-CsvField"><a href="#注解：-CsvField" class="headerlink" title="注解：@CsvField"></a>注解：@CsvField</h3><pre><code class="java">import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CsvField &#123;
+    int index() default 0;
+    String name() default &quot;&quot;;
+    String dateFormat() default &quot;yyyy-MM-dd&quot;;
+&#125;
+</code></pre>
+<h3 id="类：CsvData"><a href="#类：CsvData" class="headerlink" title="类：CsvData"></a>类：CsvData</h3><pre><code class="java">import lombok.Data;
+import java.io.Serializable;
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/flashsun/p/7246260.html">从零开始打jar包</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/adolfmc/archive/2012/10/07/2713562.html">java命令执行jar包的方式</a><br><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260466914339296">classpath和jar</a></p>
+@Data
+public class CsvData implements Serializable &#123;
+    private static final long serialVersionUID = -3266747069299101868L;
+    private String value;
+    public CsvData(String value) &#123;
+        this.value = value;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="类：CsvTool"><a href="#类：CsvTool" class="headerlink" title="类：CsvTool"></a>类：CsvTool</h3><details>
+<summary><strong>CsvTool</strong></summary>
+
+<pre><code class="java">
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class CsvTool &#123;
+    private static final Logger logger = LoggerFactory.getLogger(CsvTool.class);
+    private BufferedWriter br;
+
+    public CsvTool(OutputStream out) &#123;
+        try &#123;
+            br = new BufferedWriter(new OutputStreamWriter(out, &quot;GBK&quot;));
+        &#125; catch (UnsupportedEncodingException e) &#123;
+            logger.error(&quot;&quot;, e);
+        &#125;
+    &#125;
+
+    public void writeHeader(Class&lt;?&gt; clazz) &#123;
+        if (clazz == null) &#123;
+            return;
+        &#125;
+        try &#123;
+            List&lt;String&gt; headers = getHeaders(clazz);
+            for (String s : headers) &#123;
+                br.write(s);
+                br.write(&quot;,&quot;);
+            &#125;
+            br.newLine();
+        &#125; catch (Exception e) &#123;
+            logger.error(&quot;&quot;, e);
+        &#125;
+    &#125;
+
+    private List&lt;String&gt; getHeaders(Class&lt;?&gt; clazz) &#123;
+        if (clazz == null) &#123;
+            return Collections.emptyList();
+        &#125;
+        Field[] fields = clazz.getDeclaredFields();
+        if (fields.length == 0) &#123;
+            return Collections.emptyList();
+        &#125;
+        List&lt;Field&gt; fieldList = Arrays.asList(fields);
+        return fieldList.stream().map(f -&gt; f.getAnnotation(CsvField.class))
+                .sorted(Comparator.comparing(CsvField::index))
+                .map(a -&gt; a.name())
+                .collect(Collectors.toList());
+    &#125;
+
+    public &lt;T&gt; void writeData(List&lt;T&gt; dataList) &#123;
+        if (CollectionUtils.isEmpty(dataList)) &#123;
+            return;
+        &#125;
+        List&lt;List&lt;CsvData&gt;&gt; list = getCsvData(dataList);
+        try &#123;
+            for (List&lt;CsvData&gt; line : list) &#123;
+                for (CsvData s : line) &#123;
+                    if (s == null) &#123;
+                        br.write(&quot;&quot;);
+                    &#125; else &#123;
+                        String writeData = s.getValue();
+                        if (writeData == null) &#123;
+                            writeData = &quot;&quot;;
+                        &#125; else if (writeData.contains(&quot;\&quot;&quot;)) &#123;
+                            //处理返回数据包含双引号的特殊数据
+                            writeData = writeData.replaceAll(&quot;\&quot;&quot;, &quot;\&quot;&quot; + &quot;\&quot;&quot;);
+                        &#125;
+                        br.write(&quot;\&quot;&quot; + writeData + &quot;\&quot;&quot;);
+                    &#125;
+                    br.write(&quot;,&quot;);
+                &#125;
+                br.newLine();
+            &#125;
+        &#125; catch (Exception e) &#123;
+            logger.error(&quot;&quot;, e);
+        &#125;
+    &#125;
+
+    public static &lt;T&gt; List&lt;List&lt;CsvData&gt;&gt; getCsvData(List&lt;T&gt; dataList) &#123;
+        if (CollectionUtils.isEmpty(dataList)) &#123;
+            return Collections.emptyList();
+        &#125;
+        List&lt;Field&gt; fields = getSortField(dataList.get(0).getClass());
+        if (CollectionUtils.isEmpty(fields)) &#123;
+            return Collections.emptyList();
+        &#125;
+        List&lt;List&lt;CsvData&gt;&gt; result = new ArrayList&lt;&gt;();
+        for (T t : dataList) &#123;
+            try &#123;
+                List&lt;CsvData&gt; row = new ArrayList&lt;&gt;();
+                for (Field field : fields) &#123;
+                    field.setAccessible(true);
+                    Object value = field.get(t);
+                    CsvField annotation = field.getAnnotation(CsvField.class);
+                    row.add(buildCsvData(value, annotation));
+                &#125;
+                result.add(row);
+            &#125; catch (Exception e) &#123;
+                logger.error(&quot;&quot;, e);
+            &#125;
+        &#125;
+        return result;
+    &#125;
+
+    private static List&lt;Field&gt; getSortField(Class&lt;?&gt; aClass) &#123;
+        Field[] fields = aClass.getDeclaredFields();
+        List&lt;Field&gt; list = new ArrayList&lt;&gt;();
+        for (Field f : fields) &#123;
+            CsvField csvRow = f.getAnnotation(CsvField.class);
+            if (csvRow != null) &#123;
+                list.add(f);
+            &#125;
+        &#125;
+        Collections.sort(list, (o1, o2) -&gt; &#123;
+            CsvField csvRow1 = o1.getAnnotation(CsvField.class);
+            CsvField csvRow2 = o2.getAnnotation(CsvField.class);
+            return csvRow1.index() - csvRow2.index();
+        &#125;);
+        return list;
+    &#125;
+
+    private static CsvData buildCsvData(Object value, CsvField annotation) &#123;
+        if (Objects.isNull(value)) &#123;
+            return new CsvData(&quot;&quot;);
+        &#125;
+        if (value instanceof Date) &#123;
+            SimpleDateFormat format = new SimpleDateFormat(annotation.dateFormat());
+            String date = format.format((Date) value);
+            return new CsvData(date);
+        &#125;
+        return new CsvData(String.valueOf(value));
+    &#125;
+
+    public void close() &#123;
+        try &#123;
+            br.close();
+        &#125; catch (IOException e) &#123;
+            logger.error(&quot;&quot;, e);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+</details>
+
+<!--------------------------------- Tail Start ------------------------------->
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
+<p>【1】<a target="_blank" rel="noopener" href="https://www.baidu.com/">百度</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 富强 民主 文明 和谐 </span>
