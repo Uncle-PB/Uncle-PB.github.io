@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Executor 自定义线程池 | Hexo</title>
-  <meta name="keywords" content=" Executor ">
-  <meta name="description" content="Executor 自定义线程池 | Hexo">
+  <title>File 读取Zip文件工具 | Hexo</title>
+  <meta name="keywords" content=" File , Tool , Zip ">
+  <meta name="description" content="File 读取Zip文件工具 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -534,9 +534,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-thread/ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-file/ZipResolve" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Executor 自定义线程池</h1>
+        <h1 class="article-title">File 读取Zip文件工具</h1>
     
     <div class="article-meta">
         
@@ -554,14 +554,18 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">Executor</a>
+            <a class="color5">File</a>
+            
+            <a class="color5">Tool</a>
+            
+            <a class="color4">Zip</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-18 17:01:06'>2023-03-18 13:34</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-18 16:58:13'>2023-03-18 16:44</time>
         
     </div>
     <div class="article-meta">
@@ -583,7 +587,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-1-%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89%E4%BD%BF%E7%94%A8ThreadPoolTaskExecutor"><span class="toc-text">自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-2%EF%BC%9A%E4%BD%BF%E7%94%A8ThreadPoolExecutor"><span class="toc-text">自定义线程池-2：使用ThreadPoolExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-3%EF%BC%9A%E7%BB%A7%E6%89%BFThreadPoolTaskExecutor"><span class="toc-text">自定义线程池-3：继承ThreadPoolTaskExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9AZipResolveUtil"><span class="toc-text">类：ZipResolveUtil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -602,47 +606,81 @@
         <!--------------------------------- Title Start --------------------------------->
 <p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
-<p>禁止使用Executors创建线程池<br>拒绝策略：<br>rejectedExectutionHandler参数字段用于配置绝策略，常用拒绝策略如下<br>AbortPolicy：用于被拒绝任务的处理程序，它将抛出RejectedExecutionException<br>CallerRunsPolicy：用于被拒绝任务的处理程序，它直接在execute方法的调用线程中运行被拒绝的任务。<br>DiscardOldestPolicy：用于被拒绝任务的处理程序，它放弃最旧的未处理请求，然后重试execute。<br>DiscardPolicy：用于被拒绝任务的处理程序，默认情况下它将丢弃被拒绝的任务。</p>
-<h3 id="自定义线程池-1-（推荐）使用ThreadPoolTaskExecutor"><a href="#自定义线程池-1-（推荐）使用ThreadPoolTaskExecutor" class="headerlink" title="自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor"></a>自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor</h3><pre><code class="java">@Configuration
-public class ExecutorConfig &#123;
-    @Bean(&quot;taskExecutor&quot;)
-    public Executor taskExecutor() &#123;
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        int corePoolSize = Runtime.getRuntime().availableProcessors();//获取到服务器的cpu内核
-        executor.setCorePoolSize(corePoolSize + 1);//核心池大小
-        executor.setMaxPoolSize(corePoolSize * 2);//最大线程数
-        executor.setQueueCapacity(2000);//队列程度
-        executor.setKeepAliveSeconds(60);//线程空闲时间
-        executor.setThreadNamePrefix(&quot;task-aSyc&quot;);//线程前缀名称
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());//配置拒绝策略
-        return executor;
+<h3 id="类：ZipResolveUtil"><a href="#类：ZipResolveUtil" class="headerlink" title="类：ZipResolveUtil"></a>类：ZipResolveUtil</h3><pre><code class="java">import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+
+@Slf4j
+public class ZipResolveUtil &#123;
+
+    /**
+     * @param targetFile zip文件全路径名
+     * @param batchSize 处理批次量
+     */
+    public static void resolve(String targetFile, Integer batchSize, Consumer&lt;List&lt;String&gt;&gt; consumer) throws Exception &#123;
+        // 解压格式先手动选择编码格式
+        resolve(targetFile, batchSize, consumer, StandardCharsets.UTF_8);
     &#125;
-</code></pre>
-<h3 id="自定义线程池-2：使用ThreadPoolExecutor"><a href="#自定义线程池-2：使用ThreadPoolExecutor" class="headerlink" title="自定义线程池-2：使用ThreadPoolExecutor"></a>自定义线程池-2：使用ThreadPoolExecutor</h3><pre><code class="java">@Bean(&quot;syncHotelInfoThreadPoolExecutor&quot;)
-public ThreadPoolExecutor syncHotelInfoThreadPoolExecutor() &#123;
-    int cpu = Runtime.getRuntime().availableProcessors();
-    return new ThreadPoolExecutor(
-            2 * cpu + 1,
-            2 * cpu + 1,
-            60,
-            TimeUnit.SECONDS,
-            new LinkedBlockingQueue&lt;&gt;(2000),
-            new NamedThreadFactory(&quot;HOTEL_INFO&quot;),
-            new HotelRejectHandler()
-    );
-&#125;
-</code></pre>
-<h3 id="自定义线程池-3：继承ThreadPoolTaskExecutor"><a href="#自定义线程池-3：继承ThreadPoolTaskExecutor" class="headerlink" title="自定义线程池-3：继承ThreadPoolTaskExecutor"></a>自定义线程池-3：继承ThreadPoolTaskExecutor</h3><pre><code class="java">@Component
-public class AsyncThreadPoolTaskExecutor extends ThreadPoolTaskExecutor &#123;
-    @Override
-    public final void afterPropertiesSet() &#123;
-        int corePoolSize = Runtime.getRuntime().availableProcessors();
-        super.setCorePoolSize(corePoolSize + 1);
-        super.setMaxPoolSize(corePoolSize * 2);
-        super.setKeepAliveSeconds(60);
-        super.setQueueCapacity(20480);
-        super.setRejectedExecutionHandler(new CallerRunsPolicy());
-        super.afterPropertiesSet();
+
+    public static void resolve(String targetFile, Integer batchSize, Consumer&lt;List&lt;String&gt;&gt; consumer, Charset charset) throws Exception &#123;
+        ZipFile zf = new ZipFile(targetFile, charset);
+        // 数据量统计
+        AtomicInteger dataNum = new AtomicInteger(0);
+        AtomicInteger batch = new AtomicInteger(0);
+        long totalStart = System.currentTimeMillis();
+        log.info(&quot;[ZipResolveUtil.resolve] 开始读取解析 ===========！&#125;&quot;);
+
+        InputStream in = new BufferedInputStream(new FileInputStream(targetFile));
+        ZipInputStream zin = new ZipInputStream(in, charset);
+        ZipEntry ze;
+        while ((ze = zin.getNextEntry()) != null) &#123;
+
+            AtomicInteger zipNum = new AtomicInteger(0);
+
+            //  过滤缓存文件后缀
+            if (ze.toString().startsWith(&quot;__MACOSX&quot;)) &#123;
+                continue;
+            &#125;
+
+            log.info(&quot;[ZipResolveUtil.resolve] 读取zip文件 ze.toString()========&#123;&#125;&quot;, ze);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(zf.getInputStream(ze)));
+            String line;
+            List&lt;String&gt; dataList = new ArrayList&lt;&gt;();
+            while ((line = br.readLine()) != null) &#123;
+                dataNum.getAndIncrement();
+
+                dataList.add(line);
+                //TODO 后续考虑多线程
+                if (dataList.size() &gt;= batchSize) &#123;
+                    log.info(&quot;[ZipResolveUtil.resolve] 第【&#123;&#125;】批数据，开始解析，批次量【&#123;&#125;】数据总量【&#123;&#125;】&quot;, batch.incrementAndGet(), dataList.size(), dataNum.get());
+                    long start = System.currentTimeMillis();
+                    consumer.accept(dataList);
+                    log.info(&quot;[ZipResolveUtil.resolve] 第【&#123;&#125;】批数据，解析结束，批次量【&#123;&#125;】耗时【&#123;&#125;】&quot;, batch.get(), dataList.size(), System.currentTimeMillis() - start);
+                    dataList.clear();
+                &#125;
+            &#125;
+            br.close();
+            if (CollectionUtils.isNotEmpty(dataList)) &#123;
+                long start = System.currentTimeMillis();
+                log.info(&quot;[ZipResolveUtil.resolve] 第【&#123;&#125;】批数据，开始解析，批次量【&#123;&#125;】数据总量【&#123;&#125;】&quot;, batch.incrementAndGet(), dataList.size(), dataNum.get());
+                consumer.accept(dataList);
+                log.info(&quot;[ZipResolveUtil.resolve] 第【&#123;&#125;】批数据，解析结束，批次量【&#123;&#125;】耗时【&#123;&#125;】&quot;, batch.get(), dataList.size(), System.currentTimeMillis() - start);
+                dataList.clear();
+            &#125;
+        &#125;
+        zin.closeEntry();
+        log.info(&quot;[ZipResolveUtil.resolve] 全部解析结束，总数据量【&#123;&#125;】总耗时【&#123;&#125;】=======！&#125;&quot;, dataNum.get(), System.currentTimeMillis() - totalStart);
     &#125;
 &#125;
 </code></pre>

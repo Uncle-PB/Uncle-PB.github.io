@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Executor 自定义线程池 | Hexo</title>
-  <meta name="keywords" content=" Executor ">
-  <meta name="description" content="Executor 自定义线程池 | Hexo">
+  <title>TipMark 小技巧 | Hexo</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="TipMark 小技巧 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -534,34 +534,19 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-thread/ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-TipMark" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Executor 自定义线程池</h1>
+        <h1 class="article-title">TipMark 小技巧</h1>
     
     <div class="article-meta">
         
         
         
-        <span class="book">
-            <i class="iconfont icon-category"></i>
-            
-            
-            <a  data-rel="ATM">ATM</a>
-            
-        </span>
-        
-        
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color4">Executor</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-18 17:01:06'>2023-03-18 13:34</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-18 16:41:10'>2023-03-18 16:39</time>
         
     </div>
     <div class="article-meta">
@@ -583,7 +568,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-1-%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89%E4%BD%BF%E7%94%A8ThreadPoolTaskExecutor"><span class="toc-text">自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-2%EF%BC%9A%E4%BD%BF%E7%94%A8ThreadPoolExecutor"><span class="toc-text">自定义线程池-2：使用ThreadPoolExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-3%EF%BC%9A%E7%BB%A7%E6%89%BFThreadPoolTaskExecutor"><span class="toc-text">自定义线程池-3：继承ThreadPoolTaskExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -602,50 +587,7 @@
         <!--------------------------------- Title Start --------------------------------->
 <p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
-<p>禁止使用Executors创建线程池<br>拒绝策略：<br>rejectedExectutionHandler参数字段用于配置绝策略，常用拒绝策略如下<br>AbortPolicy：用于被拒绝任务的处理程序，它将抛出RejectedExecutionException<br>CallerRunsPolicy：用于被拒绝任务的处理程序，它直接在execute方法的调用线程中运行被拒绝的任务。<br>DiscardOldestPolicy：用于被拒绝任务的处理程序，它放弃最旧的未处理请求，然后重试execute。<br>DiscardPolicy：用于被拒绝任务的处理程序，默认情况下它将丢弃被拒绝的任务。</p>
-<h3 id="自定义线程池-1-（推荐）使用ThreadPoolTaskExecutor"><a href="#自定义线程池-1-（推荐）使用ThreadPoolTaskExecutor" class="headerlink" title="自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor"></a>自定义线程池-1:（推荐）使用ThreadPoolTaskExecutor</h3><pre><code class="java">@Configuration
-public class ExecutorConfig &#123;
-    @Bean(&quot;taskExecutor&quot;)
-    public Executor taskExecutor() &#123;
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        int corePoolSize = Runtime.getRuntime().availableProcessors();//获取到服务器的cpu内核
-        executor.setCorePoolSize(corePoolSize + 1);//核心池大小
-        executor.setMaxPoolSize(corePoolSize * 2);//最大线程数
-        executor.setQueueCapacity(2000);//队列程度
-        executor.setKeepAliveSeconds(60);//线程空闲时间
-        executor.setThreadNamePrefix(&quot;task-aSyc&quot;);//线程前缀名称
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());//配置拒绝策略
-        return executor;
-    &#125;
-</code></pre>
-<h3 id="自定义线程池-2：使用ThreadPoolExecutor"><a href="#自定义线程池-2：使用ThreadPoolExecutor" class="headerlink" title="自定义线程池-2：使用ThreadPoolExecutor"></a>自定义线程池-2：使用ThreadPoolExecutor</h3><pre><code class="java">@Bean(&quot;syncHotelInfoThreadPoolExecutor&quot;)
-public ThreadPoolExecutor syncHotelInfoThreadPoolExecutor() &#123;
-    int cpu = Runtime.getRuntime().availableProcessors();
-    return new ThreadPoolExecutor(
-            2 * cpu + 1,
-            2 * cpu + 1,
-            60,
-            TimeUnit.SECONDS,
-            new LinkedBlockingQueue&lt;&gt;(2000),
-            new NamedThreadFactory(&quot;HOTEL_INFO&quot;),
-            new HotelRejectHandler()
-    );
-&#125;
-</code></pre>
-<h3 id="自定义线程池-3：继承ThreadPoolTaskExecutor"><a href="#自定义线程池-3：继承ThreadPoolTaskExecutor" class="headerlink" title="自定义线程池-3：继承ThreadPoolTaskExecutor"></a>自定义线程池-3：继承ThreadPoolTaskExecutor</h3><pre><code class="java">@Component
-public class AsyncThreadPoolTaskExecutor extends ThreadPoolTaskExecutor &#123;
-    @Override
-    public final void afterPropertiesSet() &#123;
-        int corePoolSize = Runtime.getRuntime().availableProcessors();
-        super.setCorePoolSize(corePoolSize + 1);
-        super.setMaxPoolSize(corePoolSize * 2);
-        super.setKeepAliveSeconds(60);
-        super.setQueueCapacity(20480);
-        super.setRejectedExecutionHandler(new CallerRunsPolicy());
-        super.afterPropertiesSet();
-    &#125;
-&#125;
-</code></pre>
+<p><strong>Java文件下载的4种方式</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Super_Xiaoma/article/details/128014579">https://blog.csdn.net/Super_Xiaoma/article/details/128014579</a></p>
 <!--------------------------------- Tail Start ------------------------------->
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
 <p>【1】<a target="_blank" rel="noopener" href="https://www.baidu.com/">百度</a></p>
