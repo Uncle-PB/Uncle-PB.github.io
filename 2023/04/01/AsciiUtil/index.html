@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>【Excel】使用EasyExcel导入/导出 | Hexo</title>
-  <meta name="keywords" content=" Excel ">
-  <meta name="description" content="【Excel】使用EasyExcel导入/导出 | Hexo">
+  <title>【Ascii】全角半角转换工具 | Hexo</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="【Ascii】全角半角转换工具 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -602,9 +602,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-excel/EasyExcel" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-AsciiUtil" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">【Excel】使用EasyExcel导入/导出</h1>
+        <h1 class="article-title">【Ascii】全角半角转换工具</h1>
     
     <div class="article-meta">
         
@@ -619,17 +619,10 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color1">Excel</a>
-            
-        </span>
-        
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-22 09:54:28'>2023-03-18 17:18</time>
+            发布时间 : <time class="date" title='最后更新: 2023-04-01 14:41:05'>2023-04-01 14:39</time>
         
     </div>
     <div class="article-meta">
@@ -651,7 +644,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#EasyExcel-1%EF%BC%9A%E5%AF%BC%E5%85%A5"><span class="toc-text">EasyExcel-1：导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EasyExcel-2%EF%BC%9A%E5%AF%BC%E5%87%BA"><span class="toc-text">EasyExcel-2：导出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA-1%EF%BC%9AAsciiUtil"><span class="toc-text">JAVA-1：AsciiUtil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -668,154 +661,75 @@
     <div class="article-entry" itemprop="articleBody">
       
         <!--------------------------------- Title Start --------------------------------->
-<p><strong><font size=7 face="黑体">  </font></strong></p>
+<p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
-<h3 id="EasyExcel-1：导入"><a href="#EasyExcel-1：导入" class="headerlink" title="EasyExcel-1：导入"></a>EasyExcel-1：导入</h3><pre><code class="java">FileInputStream fileInputStream = new FileInputStream(&quot;/Users/admin/ReadExcel.xlsx&quot;);
-EasyExcelFactory.read(fileInputStream, ExcelVO.class,
-    new CustomSizeReadListener&lt;ExcelVO&gt;(500, dataList -&gt; &#123;
-        // do something with dataList
-    &#125;)).sheet().doRead();
-</code></pre>
-<h3 id="EasyExcel-2：导出"><a href="#EasyExcel-2：导出" class="headerlink" title="EasyExcel-2：导出"></a>EasyExcel-2：导出</h3><pre><code class="java">String writeFile = &quot;/Users/admin/全部苹果订单.xlsx&quot;;
-String sheet = &quot;sheet1&quot;;
-ExcelWriter writer = EasyExcel.write(writeFile).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()).build();
-writer.write(dataList, EasyExcel.writerSheet(sheet).head(ExcelVO.class).build());
-writer.finish();
-</code></pre>
-<details>
-<summary><strong>pom.xml（注意poi的引用可能有冲突，需要排除下其他依赖中的poi）</strong></summary>
 
-<pre><code class="xml">&lt;dependency&gt;
-    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
-    &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;
-    &lt;version&gt;3.1.1&lt;/version&gt;
-    &lt;exclusions&gt;
-        &lt;exclusion&gt;
-            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-            &lt;artifactId&gt;poi&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-        &lt;exclusion&gt;
-            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-        &lt;exclusion&gt;
-            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-            &lt;artifactId&gt;poi-ooxml-schemas&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-    &lt;/exclusions&gt;
-&lt;/dependency&gt;
-        
-&lt;dependency&gt;
-  &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-  &lt;artifactId&gt;poi&lt;/artifactId&gt;
-  &lt;version&gt;3.17&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-</details>
+<h3 id="JAVA-1：AsciiUtil"><a href="#JAVA-1：AsciiUtil" class="headerlink" title="JAVA-1：AsciiUtil"></a>JAVA-1：AsciiUtil</h3><pre><code class="java">public class AsciiUtil &#123;
 
-<details>
-<summary><strong>自定义 ReadListener，可自定每次读取数量</strong></summary>
+    public static final char SBC_SPACE = 12288; // 全角空格 12288
+    public static final char DBC_SPACE = 32; //半角空格 32
+    // ASCII character 33-126 &lt;-&gt; unicode 65281-65374
+    public static final char ASCII_START = 33;
+    public static final char ASCII_END = 126;
+    public static final char UNICODE_START = 65281;
+    public static final char UNICODE_END = 65374;
+    public static final char DBC_SBC_STEP = 65248; // 全角半角转换间隔
 
-<pre><code class="java">import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.read.listener.ReadListener;
-import com.alibaba.excel.util.ListUtils;
-import org.apache.commons.collections4.CollectionUtils;
+    public static char sbc2dbc(char src) &#123;
+        if (src == SBC_SPACE) &#123;
+            return DBC_SPACE;
+        &#125;
 
-import java.util.List;
-import java.util.function.Consumer;
+        if (src &gt;= UNICODE_START &amp;&amp; src &lt;= UNICODE_END) &#123;
+            return (char) (src - DBC_SBC_STEP);
+        &#125;
 
-/**
- * 自定义excel导入监听器
- */
-public class CustomSizeReadListener&lt;T&gt; implements ReadListener&lt;T&gt; &#123;
-  private final int BATCH_COUNT;
-  private final Consumer&lt;List&lt;T&gt;&gt; consumer;
-  private List&lt;T&gt; cachedDataList;
-
-  public CustomSizeReadListener(int size, Consumer&lt;List&lt;T&gt;&gt; consumer) &#123;
-    this.BATCH_COUNT = size;
-    this.consumer = consumer;
-    this.cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
-  &#125;
-
-  @Override
-  public void invoke(T data, AnalysisContext analysisContext) &#123;
-    this.cachedDataList.add(data);
-    if (this.cachedDataList.size() &gt;= BATCH_COUNT) &#123;
-      this.consumer.accept(this.cachedDataList);
-      this.cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
+        return src;
     &#125;
-  &#125;
 
-  @Override
-  public void doAfterAllAnalysed(AnalysisContext analysisContext) &#123;
-    if (CollectionUtils.isNotEmpty(this.cachedDataList)) &#123;
-      this.consumer.accept(this.cachedDataList);
+    /**
+     * Convert from SBC case to DBC case
+     * 全角转半角
+     */
+    public static String sbc2dbcCase(String src) &#123;
+        if (src == null) &#123;
+            return null;
+        &#125;
+        char[] c = src.toCharArray();
+        for (int i = 0; i &lt; c.length; i++) &#123;
+            c[i] = sbc2dbc(c[i]);
+        &#125;
+        return new String(c);
     &#125;
-  &#125;
+
+    public static char dbc2sbc(char src) &#123;
+        if (src == DBC_SPACE) &#123;
+            return SBC_SPACE;
+        &#125;
+        if (src &lt;= ASCII_END) &#123;
+            return (char) (src + DBC_SBC_STEP);
+        &#125;
+        return src;
+    &#125;
+
+    /**
+     * Convert from DBC case to SBC case.
+     * 半角转全角
+     */
+    public static String dbc2sbcCase(String src) &#123;
+        if (src == null) &#123;
+            return null;
+        &#125;
+
+        char[] c = src.toCharArray();
+        for (int i = 0; i &lt; c.length; i++) &#123;
+            c[i] = dbc2sbc(c[i]);
+        &#125;
+
+        return new String(c);
+    &#125;
 &#125;
 </code></pre>
-</details>
-
-<details>
-<summary><strong>ExcelVO</strong></summary>
-
-<pre><code class="java">import com.alibaba.excel.annotation.ExcelProperty;
-import com.soybean.cms.shopcenter.component.ExcelStringConverter;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
-
-/**
-* 采购价目表导入
-  */
-  @Data
-  public class ExcelVO implements Serializable &#123;
-      private static final long serialVersionUID = -6862000669234429755L;
-    /**
-    * 货品规格编码
-      */
-      @ExcelProperty(value = &quot;货品规格编码&quot;, converter = ExcelStringConverter.class)
-      private String skuCode;
-    /**
-    * 促销开始时间
-      */
-      @ExcelProperty(value = &quot;促销开始时间&quot;)
-      private Date beginTime;
-  &#125;
-</code></pre>
-</details>
-<details>
-<summary><strong>自定义 converter，去除空格</strong></summary>
-
-<pre><code class="java">import com.alibaba.excel.converters.string.StringNumberConverter;
-import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.GlobalConfiguration;
-import com.alibaba.excel.metadata.data.ReadCellData;
-import com.alibaba.excel.metadata.property.ExcelContentProperty;
-
-/**
- * 去除导入的excel中的空格
- */
-public class ExcelStringConverter extends StringNumberConverter &#123;
-  @Override
-  public Class&lt;?&gt; supportJavaTypeKey() &#123;
-    return String.class;
-  &#125;
-
-  @Override
-  public String convertToJavaData(ReadCellData&lt;?&gt; cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) &#123;
-    String value = CellDataTypeEnum.NUMBER.equals(cellData.getType())
-        ? super.convertToJavaData(cellData, contentProperty, globalConfiguration)
-        : cellData.getStringValue();
-    return value.replaceAll(&quot;[\\u00a0|\\t|　| | |//s]*&quot;, &quot;&quot;);
-  &#125;
-&#125;
-</code></pre>
-</details>
-
-
 <!--------------------------------- Tail Start ------------------------------->
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
 <p>【1】<a target="_blank" rel="noopener" href="https://www.baidu.com/">百度</a></p>

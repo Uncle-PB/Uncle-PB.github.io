@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>【Date】清单 | Hexo</title>
+  <title>【Date】工具类 | Hexo</title>
   <meta name="keywords" content="">
-  <meta name="description" content="【Date】清单 | Hexo">
+  <meta name="description" content="【Date】工具类 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -240,7 +240,7 @@
     <li>
         <div class="all active" data-rel="全部文章">全部文章
             
-                <small>(19)</small>
+                <small>(22)</small>
             
         </div>
     </li>
@@ -248,10 +248,24 @@
         
             
                 <li>
+                    <div data-rel="网址导航">
+                        
+                        网址导航
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
                     <div data-rel="ATM">
                         
                         ATM
-                        <small>(11)</small>
+                        <small>(14)</small>
                         
                     </div>
                     
@@ -279,7 +293,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="19">
+<input type="hidden" id="yelog_site_posts_number" value="22">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -373,11 +387,38 @@
     <nav id="title-list-nav">
         
         
-        <a  class="全部文章 "
+        <a  class="全部文章 ATM "
+           href="/2023/04/01/linux/linuxCommand/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="【Linux】常用命令">【Linux】常用命令</span>
+            <span class="post-date" title="2023-04-01 17:29:12">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="全部文章 网址导航 "
+           href="/2023/04/01/WebTabs/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="【WebTabs】">【WebTabs】</span>
+            <span class="post-date" title="2023-04-01 14:46:46">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="全部文章 ATM "
+           href="/2023/04/01/AsciiUtil/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="【Ascii】全角半角转换工具">【Ascii】全角半角转换工具</span>
+            <span class="post-date" title="2023-04-01 14:39:23">2023/04/01</span>
+        </a>
+        
+        
+        <a  class="全部文章 ATM "
            href="/2023/03/22/DateUtil/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="【Date】清单">【Date】清单</span>
+            <span class="post-title" title="【Date】工具类">【Date】工具类</span>
             <span class="post-date" title="2023-03-22 10:04:42">2023/03/22</span>
         </a>
         
@@ -395,7 +436,7 @@
            href="/2023/03/22/lambda/Lambda/"
            data-tag=""
            data-author="" >
-            <span class="post-title" title="Lambda 清单">Lambda 清单</span>
+            <span class="post-title" title="【Lambda】 清单">【Lambda】 清单</span>
             <span class="post-date" title="2023-03-22 09:38:04">2023/03/22</span>
         </a>
         
@@ -563,17 +604,25 @@
     <div class="pjax">
         <article id="post-DateUtil" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">【Date】清单</h1>
+        <h1 class="article-title">【Date】工具类</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="ATM">ATM</a>
+            
+        </span>
+        
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-22 10:08:09'>2023-03-22 10:04</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-28 15:51:49'>2023-03-22 10:04</time>
         
     </div>
     <div class="article-meta">
@@ -595,7 +644,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TITLE"><span class="toc-text">TITLE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA-1%EF%BC%9A%E7%AD%89%E5%80%BC%E6%AF%94%E8%BE%83"><span class="toc-text">JAVA-1：等值比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#DateUtils"><span class="toc-text">DateUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -615,7 +664,219 @@
 <p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
 
-<h2 id="TITLE"><a href="#TITLE" class="headerlink" title="TITLE"></a>TITLE</h2><h3 id="JAVA-1：等值比较"><a href="#JAVA-1：等值比较" class="headerlink" title="JAVA-1：等值比较"></a>JAVA-1：等值比较</h3><pre><code class="java">
+<h3 id="DateUtils"><a href="#DateUtils" class="headerlink" title="DateUtils"></a>DateUtils</h3><pre><code class="java">import org.apache.commons.lang3.StringUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+
+public class DateUtils &#123;
+
+    public static final String DATE_FORMAT_FULL = &quot;yyyy-MM-dd HH:mm:ss&quot;;
+    public static final String DATE_FORMAT_YMD = &quot;yyyy-MM-dd&quot;;
+    public static final String DATE_FORMAT_SHORT_YMD = &quot;yyyyMMdd&quot;;
+    public static final String DATE_FORMAT_CH_YMD = &quot;yyyy年MM月dd日&quot;;
+    public static final String DATE_FORMAT_HMS = &quot;HH:mm:ss&quot;;
+    public static final String DATE_FORMAT_HM = &quot;HH:mm&quot;;
+    public static final String DATE_FORMAT_YMDHM = &quot;yyyy-MM-dd HH:mm&quot;;
+    public static final String DATE_FORMAT_YMDHMS = &quot;yyyyMMddHHmmss&quot;;
+
+    public static final long ONE_DAY_MILLS = 3600_000 * 24;
+    public static final int WEEK_DAYS = 7;
+
+    /**
+     * 锁对象
+     */
+    private static final Object lockObj = new Object();
+
+    /**
+     * 存放不同的日期模板格式的sdf的Map
+     */
+    private static Map&lt;String, ThreadLocal&lt;SimpleDateFormat&gt;&gt; sdfMap = new HashMap&lt;String, ThreadLocal&lt;SimpleDateFormat&gt;&gt;();
+
+    /**
+     * 从ThreadLocal&lt;SimpleDateFormat&gt;中获取SimpleDateFormat, 每个线程只会new一次sdf
+     */
+    private static SimpleDateFormat getSdf(final String pattern) &#123;
+        ThreadLocal&lt;SimpleDateFormat&gt; tl = sdfMap.get(pattern);
+        // 此处的双重判断和同步是为了防止sdfMap这个单例被多次put重复的sdf
+        if (tl == null) &#123;
+            synchronized (lockObj) &#123;
+                tl = sdfMap.get(pattern);
+                // 只有Map中还没有这个pattern的sdf才会生成新的sdf并放入map
+                if (tl == null) &#123;
+                    // 使用ThreadLocal&lt;SimpleDateFormat&gt;替代原来直接new SimpleDateFormat
+                    tl = ThreadLocal.withInitial(() -&gt; new SimpleDateFormat(pattern));
+                    sdfMap.put(pattern, tl);
+                &#125;
+            &#125;
+        &#125;
+
+        return tl.get();
+    &#125;
+
+    /**
+     * 日期转换为制定格式字符串
+     */
+    public static String formatDateToString(Date date, String pattern) &#123;
+        return date == null ? null : getSdf(pattern).format(date);
+    &#125;
+
+    /**
+     * 字符串转换为制定格式日期
+     */
+    public static Date formatStringToDate(String dateStr, String pattern) &#123;
+        if (StringUtils.isBlank(dateStr)) &#123;
+            return null;
+        &#125;
+
+        try &#123;
+            return getSdf(pattern).parse(dateStr);
+        &#125; catch (ParseException e) &#123;
+            return null;
+        &#125;
+    &#125;
+
+    /**
+     * 计算个两日期的天数
+     */
+    public static int getDaysBetween(String startDate, String endDate) throws ParseException &#123;
+        int dayGap = 0;
+        if (startDate != null &amp;&amp; startDate.length() &gt; 0 &amp;&amp; endDate != null &amp;&amp; endDate.length() &gt; 0) &#123;
+            Date end = formatStringToDate(endDate, DATE_FORMAT_YMD);
+            Date start = formatStringToDate(startDate, DATE_FORMAT_YMD);
+            dayGap = getDaysBetween(start, end);
+        &#125;
+        return dayGap;
+    &#125;
+
+    public static int getDaysBetween(Date startDate, Date endDate) &#123;
+        return (int) ((endDate.getTime() - startDate.getTime()) / ONE_DAY_MILLS);
+    &#125;
+
+
+    /**
+     * 计算两个日期之间的年份差距
+     */
+    public static int getYearGapOfDates(Date firstDate, Date secondDate) &#123;
+        if (firstDate == null || secondDate == null) &#123;
+            return 0;
+        &#125;
+        Calendar helpCalendar = Calendar.getInstance();
+        helpCalendar.setTime(firstDate);
+        int firstYear = helpCalendar.get(Calendar.YEAR);
+        helpCalendar.setTime(secondDate);
+        int secondYear = helpCalendar.get(Calendar.YEAR);
+        return secondYear - firstYear;
+    &#125;
+
+    /**
+     * 计算两个日期之间的月份差距
+     */
+    public static int getMonthGapOfDates(Date firstDate, Date secondDate) &#123;
+        if (firstDate == null || secondDate == null) &#123;
+            return 0;
+        &#125;
+        return (int) ((secondDate.getTime() - firstDate.getTime()) / ONE_DAY_MILLS / 30);
+    &#125;
+
+    /**
+     * 从某日期开始计算time天后的日期
+     */
+    public static String getCalculateDateToString(String startDate, int time) throws ParseException &#123;
+        String resultDate = null;
+        if (startDate != null &amp;&amp; startDate.length() &gt; 0) &#123;
+            Date date = formatStringToDate(startDate, DATE_FORMAT_YMD);
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
+            c.set(Calendar.DAY_OF_YEAR, time);
+            date = c.getTime();
+            resultDate = formatDateToString(date, DATE_FORMAT_YMD);
+        &#125;
+        return resultDate;
+    &#125;
+
+    /**
+     * 根据指定的日期，增加或者减少天数
+     */
+    public static Date addDays(Date date, int amount) &#123;
+        return add(date, Calendar.DAY_OF_MONTH, amount);
+    &#125;
+
+    /**
+     * 根据指定的日期，类型，增加或减少数量
+     */
+    public static Date add(Date date, int calendarField, int amount) &#123;
+        if (date == null) &#123;
+            throw new IllegalArgumentException(&quot;The date must not be null&quot;);
+        &#125;
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(calendarField, amount);
+        return c.getTime();
+    &#125;
+
+    /**
+     * 获取当前日期的开始时间
+     */
+    public static Date getCurDateStartTime() &#123;
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    &#125;
+
+    /**
+     * 获取当前日期的结束时间
+     */
+    public static Date getCurDateEndTime() &#123;
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        return c.getTime();
+    &#125;
+
+    /**
+     * 获取指定日期的开始时间
+     */
+    public static Date getStartTime(Date date) &#123;
+        Calendar curr = Calendar.getInstance();
+        curr.setTime(date);
+        curr.set(Calendar.HOUR_OF_DAY, 0);
+        curr.set(Calendar.MINUTE, 0);
+        curr.set(Calendar.SECOND, 0);
+        curr.set(Calendar.MILLISECOND, 0);
+        return curr.getTime();
+    &#125;
+
+    /**
+     * 获取指定日期的结束时间
+     */
+    public static Date getEndTime(Date date) &#123;
+        Calendar curr = Calendar.getInstance();
+        curr.setTime(date);
+        curr.set(Calendar.HOUR_OF_DAY, 23);
+        curr.set(Calendar.MINUTE, 59);
+        curr.set(Calendar.SECOND, 59);
+        return curr.getTime();
+    &#125;
+
+    /**
+     * 获取指定日期星期几
+     */
+    public static int getWeekOfDate(String datetime) throws ParseException &#123;
+        Calendar cal = Calendar.getInstance();
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.setMinimalDaysInFirstWeek(WEEK_DAYS);
+        Date date = formatStringToDate(datetime, DATE_FORMAT_YMD);
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    &#125;
+&#125;
 </code></pre>
 <!--------------------------------- Tail Start ------------------------------->
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
