@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>【小笔记-1】Web开发 | Hexo</title>
+  <title>【SSH】Git 配置 SSH | Hexo</title>
   <meta name="keywords" content="">
-  <meta name="description" content="【小笔记-1】Web开发 | Hexo">
+  <meta name="description" content="【SSH】Git 配置 SSH | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -588,19 +588,27 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-note-1-webDevelop" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-ssh" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">【小笔记-1】Web开发</h1>
+        <h1 class="article-title">【SSH】Git 配置 SSH</h1>
     
     <div class="article-meta">
         
         
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="ATM">ATM</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-02-20 09:28:59'>2021-06-04 16:57</time>
+            发布时间 : <time class="date" title='最后更新: 2023-08-25 17:06:07'>2023-08-25 16:52</time>
         
     </div>
     <div class="article-meta">
@@ -622,7 +630,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8Web%E7%A8%8B%E5%BA%8F"><span class="toc-text"># 启动Web程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Tomcat%E4%B8%8A%E8%BF%90%E8%A1%8Cweb%E7%A8%8B%E5%BA%8F"><span class="toc-text"># 在Tomcat上运行web程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-amp-JSP"><span class="toc-text"># Servlet &amp; JSP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSP%E5%92%8CServlet%E5%8C%BA%E5%88%AB"><span class="toc-text"># JSP和Servlet区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC%E6%A8%A1%E5%9E%8B"><span class="toc-text"># MVC模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ServletContext"><span class="toc-text"># ServletContext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8Spring%E5%AE%B9%E5%99%A8"><span class="toc-text"># 启动Spring容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MAC-SSH-%E9%85%8D%E7%BD%AE"><span class="toc-text">MAC SSH 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%B7%B2%E7%BB%8F%E5%AD%98%E5%9C%A8SSH-Key"><span class="toc-text">1、检查是否已经存在SSH Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E7%94%9F%E6%88%90-%E8%AE%BE%E7%BD%AESSH-Key"><span class="toc-text">2、生成&#x2F;设置SSH Key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -639,38 +647,43 @@
     <div class="article-entry" itemprop="articleBody">
       
         <!--------------------------------- Title Start --------------------------------->
-<p><strong><font size=7 face="黑体"> 【小笔记-1】Web开发 </font></strong></p>
-<!--------------------------------- Summary Start ------------------------------->
-
-
-<span id="more"></span>
+<p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
 
-<h3 id="启动Web程序"><a href="#启动Web程序" class="headerlink" title="# 启动Web程序"></a># 启动Web程序</h3><blockquote><p>&emsp;普通的Java程序是通过启动JVM，然后执行main()方法开始运行。<br>但是Web应用程序有所不同，我们无法直接运行war文件，必须先启动Web服务器，再由Web服务器加载我们编写的HelloServlet，这样就可以让HelloServlet处理浏览器发送的请求</p>
-</blockquote>
-
-<h3 id="在Tomcat上运行web程序"><a href="#在Tomcat上运行web程序" class="headerlink" title="# 在Tomcat上运行web程序"></a># 在Tomcat上运行web程序</h3><blockquote><p>&emsp;要运行我们的hello.war，首先要下载Tomcat服务器，解压后，把hello.war复制到Tomcat的webapps目录下，然后切换到bin目录，执行startup.sh或startup.bat启动Tomcat服务器。<br>Tomcat实际上也是一个Java程序，我们看看Tomcat的启动流程：</p>
-<p>&emsp;  启动JVM并执行Tomcat的main()方法；<br>&emsp;  加载war并初始化Servlet；<br>&emsp;  正常服务。</p>
-<p>&emsp;启动Tomcat无非就是设置好classpath并执行Tomcat某个jar包的main()方法，我们完全可以把Tomcat的jar包全部引入进来，然后自己编写一个main()方法，先启动Tomcat，然后让它加载我们的webapp就行。</p>
-</blockquote>
-
-<h3 id="Servlet-amp-JSP"><a href="#Servlet-amp-JSP" class="headerlink" title="# Servlet &amp; JSP"></a># Servlet &amp; JSP</h3><blockquote><p>&emsp;JavaEE提供了Servlet API，我们使用Servlet API编写自己的Servlet来处理HTTP请求，Web服务器实现Servlet API接口，实现底层功能。Servlet就是一个能处理HTTP请求，发送HTTP响应的小程序，输出HTML就有点力不从心，更简单输出HTML的方式 -》JSP</p>
-</blockquote>
-
-<h3 id="JSP和Servlet区别"><a href="#JSP和Servlet区别" class="headerlink" title="# JSP和Servlet区别"></a># JSP和Servlet区别</h3><blockquote><p>&emsp;JSP和Servlet有什么区别？其实它们没有任何区别，因为JSP在执行前首先被编译成一个Servlet。在Tomcat的临时目录下，可以找到一个hello_jsp.java的源文件。JSP本质上就是一个Servlet，只不过无需配置映射路径，Web Server会根据路径查找对应的.jsp文件，如果找到了，就自动编译成Servlet再执行。在服务器运行过程中，如果修改了JSP的内容，那么服务器会自动重新编译</p>
-</blockquote>
-
-<h3 id="MVC模型"><a href="#MVC模型" class="headerlink" title="# MVC模型"></a># MVC模型</h3><blockquote><p>&emsp;MVC模型：我们把UserServlet看作业务逻辑处理，把User看作模型，把user.jsp看作渲染，这种设计模式通常被称为MVC：Model-View-Controller，即UserServlet作为控制器（Controller），User作为模型（Model），user.jsp作为视图（View）</p>
-</blockquote>
-
-<h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="# ServletContext"></a># ServletContext</h3><blockquote><p>6、ServletContext：一个Web服务器可以运行一个或多个WebApp，对于每个WebApp，Web服务器都会为其创建一个全局唯一的ServletContext实例。ServletContext还提供了动态添加Servlet、Filter、Listener等功能，它允许应用程序在运行期间动态添加一个组件。<br>&emsp;Servlet规范定义了几种标准组件：Servlet、JSP、Filter和Listener；<br>&emsp;Servlet的标准组件总是运行在Servlet容器中，如Tomcat、Jetty、WebLogic等。<br>&emsp;直接使用Servlet进行Web开发好比直接在JDBC上操作数据库，比较繁琐，更好的方法是在Servlet基础上封装MVC框架，基于MVC开发Web应用，大部分时候，不需要接触Servlet API，开发省时省力。</p>
-</blockquote>
-
-<h3 id="启动Spring容器"><a href="#启动Spring容器" class="headerlink" title="# 启动Spring容器"></a># 启动Spring容器</h3><blockquote><p>&emsp;现在是Web应用程序，而Web应用程序总是由Servlet容器创建，那么，Spring容器应该由谁创建？在什么时候创建？Spring容器中的Controller又是如何通过Servlet调用的？<br>在Web应用中启动Spring容器有很多种方法，可以通过Listener启动，也可以通过Servlet启动，可以使用XML配置，也可以使用注解配置。    </p>
-</blockquote>
-
-
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945497738400">Web开发 廖雪峰</a></p>
+<h2 id="MAC-SSH-配置"><a href="#MAC-SSH-配置" class="headerlink" title="MAC SSH 配置"></a>MAC SSH 配置</h2><h3 id="1、检查是否已经存在SSH-Key"><a href="#1、检查是否已经存在SSH-Key" class="headerlink" title="1、检查是否已经存在SSH Key"></a>1、检查是否已经存在SSH Key</h3><p>打开电脑终端，输入以下命令：</p>
+<pre><code class="linux">ls -al ~/.ssh   
+</code></pre>
+<h3 id="2、生成-设置SSH-Key"><a href="#2、生成-设置SSH-Key" class="headerlink" title="2、生成/设置SSH Key"></a>2、生成/设置SSH Key</h3><p>继续上一步可能出现的情况<br>（1）情况一：终端出现文件id_rsa.pub 或 id_dsa.pub，则表示该电脑已经存在SSH Key，此时可继续输入命令：</p>
+<pre><code class="linux">pbcopy &lt; ~/.ssh/id_rsa.pub  
+</code></pre>
+<p>这样你需要的SSH Key 就已经复制到粘贴板上了，然后进行步骤3<br>（2）情况二：终端未出现id_rsa.pub 或 id_dsa.pub文件，表示该电脑还没有配置SSH Key，此时需要输入命令：</p>
+<pre><code class="linux">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+</code></pre>
+<p>（注意，这里的  <a href="mailto:&#x79;&#111;&#117;&#x72;&#95;&#x65;&#x6d;&#97;&#x69;&#x6c;&#64;&#101;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#x79;&#111;&#117;&#x72;&#95;&#x65;&#x6d;&#97;&#x69;&#x6c;&#64;&#101;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;</a>  是你自己的邮箱（例如：11******@qq.com），选一般的常用的邮箱即可，不常用的邮箱一般不推荐）<br>默认会在相应路径下（/your_home_path）生成id_rsa和id_rsa.pub两个文件，</p>
+<p>连续回车即可，也可能会让你输入密码，密码就是你的开机密码</p>
+<p>此时再输入命令：ls -al ~/.ssh     就会出现id_rsa.pub 和 id_dsa.pub两个文件，然后重复情况一的步骤即输入以下命令再进行步骤3 输入：</p>
+<pre><code class="linux">pbcopy &lt; ~/.ssh/id_rsa.pub
+</code></pre>
+<p>////////////////到此生成sshkey 完成////////////////////   </p>
+<p>下面就是将SSH Key添加到GitLab中：<br>打开GitLab,  登录，找到个人中心中的：Profile -&gt; SSH Key<br>把刚刚复制的内容（直接粘贴操作就好）粘贴到下方key出，Title可以不写，会自动识别出key中的邮件名填充的；<br><img src="/img/ssh/img.png" title="贴上SSH Key"></p>
+<p>注* mac下启动ssh服务</p>
+<p>mac本身安装了ssh服务，默认情况下不会开机自启</p>
+<p>1.启动sshd服务：</p>
+<pre><code class="linux">sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+</code></pre>
+<p>2.停止sshd服务：</p>
+<pre><code class="linux">sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+</code></pre>
+<p>3查看是否启动：</p>
+<pre><code class="linux">sudo launchctl list | grep ssh
+</code></pre>
+<p>如果看到下面的输出表示成功启动了：</p>
+<ul>
+<li>0 com.openssh.sshd</li>
+</ul>
+<!--------------------------------- Tail Start ------------------------------->
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
+<p>【1】<a target="_blank" rel="noopener" href="https://blog.csdn.net/zuozuo_you/article/details/122046124">Mac-SSH配置</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 富强 民主 文明 和谐 </span>
