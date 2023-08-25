@@ -240,7 +240,7 @@
     <li>
         <div class="all active" data-rel="全部文章">全部文章
             
-                <small>(22)</small>
+                <small>(21)</small>
             
         </div>
     </li>
@@ -248,24 +248,10 @@
         
             
                 <li>
-                    <div data-rel="网址导航">
-                        
-                        网址导航
-                        <small>(1)</small>
-                        
-                    </div>
-                    
-                </li>
-            
-        
-    
-        
-            
-                <li>
                     <div data-rel="ATM">
                         
                         ATM
-                        <small>(14)</small>
+                        <small>(15)</small>
                         
                     </div>
                     
@@ -293,7 +279,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="22">
+<input type="hidden" id="yelog_site_posts_number" value="21">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -396,15 +382,6 @@
         </a>
         
         
-        <a  class="全部文章 网址导航 "
-           href="/2023/04/01/WebTabs/"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="【WebTabs】">【WebTabs】</span>
-            <span class="post-date" title="2023-04-01 14:46:46">2023/04/01</span>
-        </a>
-        
-        
         <a  class="全部文章 ATM "
            href="/2023/04/01/AsciiUtil/"
            data-tag=""
@@ -432,7 +409,7 @@
         </a>
         
         
-        <a  class="全部文章 "
+        <a  class="全部文章 ATM "
            href="/2023/03/22/lambda/Lambda/"
            data-tag=""
            data-author="" >
@@ -610,11 +587,19 @@
         
         
         
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="ATM">ATM</a>
+            
+        </span>
+        
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-04-01 14:48:59'>2023-03-22 09:38</time>
+            发布时间 : <time class="date" title='最后更新: 2023-08-25 16:44:05'>2023-03-22 09:38</time>
         
     </div>
     <div class="article-meta">
@@ -636,7 +621,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TITLE"><span class="toc-text">TITLE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JAVA-1%EF%BC%9A%E7%AD%89%E5%80%BC%E6%AF%94%E8%BE%83"><span class="toc-text">JAVA-1：等值比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-1%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8E%BB%E9%87%8D%EF%BC%8C%E5%B9%B6%E6%8C%89%E8%A7%84%E5%88%99%E4%BF%9D%E7%95%99"><span class="toc-text">Lambda-1：条件去重，并按规则保留</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="toc-text">Lambda-2：字符串拼接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda-3%EF%BC%9A%E5%B0%86%E5%AD%90%E5%85%83%E7%B4%A0list%E5%90%88%E5%B9%B6%E6%88%90%E4%B8%80%E4%B8%AAlist"><span class="toc-text">Lambda-3：将子元素list合并成一个list</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -656,7 +641,21 @@
 <p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
 
-<h2 id="TITLE"><a href="#TITLE" class="headerlink" title="TITLE"></a>TITLE</h2><h3 id="JAVA-1：等值比较"><a href="#JAVA-1：等值比较" class="headerlink" title="JAVA-1：等值比较"></a>JAVA-1：等值比较</h3><pre><code class="java">
+<h3 id="Lambda-1：条件去重，并按规则保留"><a href="#Lambda-1：条件去重，并按规则保留" class="headerlink" title="Lambda-1：条件去重，并按规则保留"></a>Lambda-1：条件去重，并按规则保留</h3><p>需求：相同的name只保留一个，并按index的优先级取大的</p>
+<pre><code class="java">List&lt;Mapping&gt; list = Arrays.asList(
+        new Mapping(2, &quot;ROOM666&quot;),
+        new Mapping(3, &quot;ROOM666&quot;),
+        new Mapping(3, &quot;ROOM111&quot;),
+        new Mapping(5, &quot;ROOM111&quot;),
+        new Mapping(2, &quot;ROOM111&quot;));
+
+Map&lt;String, Mapping&gt; map = list.stream().collect(Collectors.toMap(Mapping::getName, Function.identity(), (m1, m2) -&gt; m2.getIndex() &gt; m1.getIndex() ? m2 : m1));
+Collection&lt;Mapping&gt; values = map.values();
+</code></pre>
+<h3 id="Lambda-2：字符串拼接"><a href="#Lambda-2：字符串拼接" class="headerlink" title="Lambda-2：字符串拼接"></a>Lambda-2：字符串拼接</h3><pre><code class="java">String str = list.stream().map(Mapping::getName).collect(Collectors.joining(&quot;-&quot;));
+</code></pre>
+<h3 id="Lambda-3：将子元素list合并成一个list"><a href="#Lambda-3：将子元素list合并成一个list" class="headerlink" title="Lambda-3：将子元素list合并成一个list"></a>Lambda-3：将子元素list合并成一个list</h3><pre><code class="java">List&lt;String&gt; list = Arrays.asList(&quot;1,2,3&quot;, &quot;dd,hh,gg&quot;);
+List&lt;String&gt; levels = list.stream().map(l -&gt; l.split(&quot;,&quot;)).flatMap(Stream::of).collect(Collectors.toList());
 </code></pre>
 <!--------------------------------- Tail Start ------------------------------->
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><hr>
