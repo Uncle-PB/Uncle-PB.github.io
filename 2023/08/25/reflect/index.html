@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>【File】文件下载工具 | Hexo</title>
-  <meta name="keywords" content=" File , Tool , Url ">
-  <meta name="description" content="【File】文件下载工具 | Hexo">
+  <title>【Reflect】反射 | Hexo</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="【Reflect】反射 | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
@@ -597,9 +597,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-file/DownLoadUtil" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-reflect" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">【File】文件下载工具</h1>
+        <h1 class="article-title">【Reflect】反射</h1>
     
     <div class="article-meta">
         
@@ -616,21 +616,10 @@
         </span>
         
         
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color5">File</a>
-            
-            <a class="color5">Tool</a>
-            
-            <a class="color4">Url</a>
-            
-        </span>
-        
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-08-25 17:54:35'>2023-03-18 16:18</time>
+            发布时间 : <time class="date" title='最后更新: 2023-08-25 17:54:35'>2023-08-25 17:26</time>
         
     </div>
     <div class="article-meta">
@@ -652,7 +641,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%EF%BC%9ADownLoadUtil"><span class="toc-text">类：DownLoadUtil</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%B0%86%E6%9C%AA%E7%9F%A5%E8%8C%83%E5%9E%8B-%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%A4%84%E7%90%86%E7%B1%BB%E4%B8%8A%E7%9A%84%E6%8C%87%E5%AE%9A%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B"><span class="toc-text">1、将未知范型 转换为处理类上的指定对象类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-text">参考</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -671,112 +660,24 @@
         <!--------------------------------- Title Start --------------------------------->
 <p><strong><font size=7 face="黑体"></font></strong></p>
 <!--------------------------------- Content Start ------------------------------->
-<p>1、文件下载，支持断点续传<br>原理：<br>&nbsp;&nbsp;-比较本地文件和远程文件大<br>&nbsp;&nbsp;-设置属性 RANGE=”bytes=0-“<br>2、URL下载地址有中文，需要进行转义</p>
-<h3 id="类：DownLoadUtil"><a href="#类：DownLoadUtil" class="headerlink" title="类：DownLoadUtil"></a>类：DownLoadUtil</h3><pre><code class="java">import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+<h3 id="1、将未知范型-转换为处理类上的指定对象类型"><a href="#1、将未知范型-转换为处理类上的指定对象类型" class="headerlink" title="1、将未知范型 转换为处理类上的指定对象类型"></a>1、将未知范型 转换为处理类上的指定对象类型</h3><pre><code class="java">private Object convert(Handler handler,T data) &#123;
+    String dataStr =  JSON.toJSONString(data);
+    Type argument = (((ParameterizedType) handler.getClass().getGenericInterfaces()[0])).getActualTypeArguments()[0];
 
-@Slf4j
-public final class DownLoadUtil &#123;
-
-    /**
-     * 下载文件
-     *
-     * @param urlAddress 远程文件地址
-     * @param filePath   下载文件全路径名
-     */
-    public static void download(String urlAddress, String filePath) throws Exception &#123;
-        download(0, urlAddress, filePath);
-    &#125;
-
-
-    public static void download(long startPosition, String urlAddress, String filePath) throws Exception &#123;
-        try &#123;
-            // 处理转义
-            urlAddress = urlEscape(urlAddress);
-            // 获得网络资源的URL
-            URL url = new URL(urlAddress);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(60000);
-            connection.setConnectTimeout(60000);
-            connection.setRequestMethod(&quot;GET&quot;);
-            connection.setRequestProperty(&quot;User-Agent&quot;, &quot;NetFox&quot;);
-
-            // 文件大小
-            long remoteLength = getResourceLength(urlAddress);
-
-            File fileOb = new File(filePath);
-            if (fileOb.exists()) &#123;
-                long length = fileOb.length();
-                if (length &gt;= remoteLength) &#123;
-                    log.info(&quot;[FileUtil] 文件没有剩余下载部分，filePath=&#123;&#125;,urlAddress=&#123;&#125;&quot;, filePath, urlAddress);
-                    return;
-                &#125;
-                startPosition = length;
-                log.info(&quot;[FileUtil] 断点续传，filePath=&#123;&#125;,start=&#123;&#125;&quot;, filePath, startPosition);
-            &#125;
-
-            long start = System.currentTimeMillis();
-            log.info(&quot;[FileUtil.download] 开始下载，文件大小【&#123;&#125;】，urlAddress=&#123;&#125;，filePath=&#123;&#125;&quot;, remoteLength, urlAddress, filePath);
-
-            // 定义请求范围属性
-            String rangeProperty = &quot;bytes=&quot; + startPosition + &quot;-&quot;;
-            connection.setRequestProperty(&quot;RANGE&quot;, rangeProperty);
-            // 连接网络资源
-            connection.connect();
-
-            // 获得输入流对象并写入文件
-            InputStream in = connection.getInputStream();
-            writeFile(in, filePath, true);
-
-            // 断开连接
-            connection.disconnect();
-            log.info(&quot;[FileUtil.download] 下载完成，耗时【&#123;&#125;】urlAddress=&#123;&#125;，filePath=&#123;&#125;&quot;, System.currentTimeMillis() - start, urlAddress, filePath);
-        &#125; catch (Exception e) &#123;
-            log.error(&quot;[FileUtil]文件下载异常&quot;, e);
-            throw new RuntimeException(&quot;文件下载异常&quot;, e);
+    // dataList
+    if (argument instanceof ParameterizedType) &#123;
+        ParameterizedType type = (ParameterizedType) argument;
+        if (type.getRawType() == List.class) &#123;
+            Type actualTypeArgument = type.getActualTypeArguments()[0];
+            Class aClass = (Class) actualTypeArgument;
+            return JSONObject.parseArray(dataStr, aClass);
         &#125;
     &#125;
 
-    public static void writeFile(InputStream inputStream, String filePath, boolean append) throws IOException &#123;
-        FileOutputStream outputStream = new FileOutputStream(filePath, append);
-        // 创建字节数组
-        byte[] buff = new byte[1024 * 2];
-        int len = 0;
-        while ((len = inputStream.read(buff)) != -1) &#123;
-            outputStream.write(buff, 0, len);
-        &#125;
-        // 关闭流
-        inputStream.close();
-        outputStream.close();
-    &#125;
-
-    /**
-     * 给定url地址获取资源的大小（以字节为单位）
-     */
-    public static long getResourceLength(String urlStr) throws IOException &#123;
-        URL url = new URL(urlStr);
-        URLConnection connection = url.openConnection();
-        return connection.getContentLengthLong();
-    &#125;
-
-    public static boolean existFile(String filePath) &#123;
-        return new File(filePath).exists();
-    &#125;
-
-    /**
-     * 处理URL转义
-     */
-    public static String urlEscape(String urlAddress) throws UnsupportedEncodingException &#123;
-        String file = StringUtils.substringAfterLast(urlAddress, &quot;/&quot;);
-        String prefix = StringUtils.substring(urlAddress, 0, urlAddress.length() - file.length());
-        return prefix + URLEncoder.encode(file, &quot;UTF-8&quot;);
-    &#125;
+    // data
+    Class aClass = (Class) argument;
+    return JSONObject.parseObject(dataStr, aClass);
 &#125;
 </code></pre>
 <!--------------------------------- Tail Start ------------------------------->
